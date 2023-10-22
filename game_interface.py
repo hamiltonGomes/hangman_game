@@ -1,6 +1,6 @@
 import time
 
-from secret_word import create_secrets_words_in_file
+from create_secrets_words import create_secrets_words_in_file
 
 
 class HangmanGame:
@@ -20,14 +20,14 @@ class HangmanGame:
         time.sleep(1)
 
         correct_letters = self.word_print(secret_word)
-        print(secret_word)
+        # print(secret_word)
+        print(f"{correct_letters}\n")
 
         while not loser and not winner:
             guess = self.ask_for_guess()
 
             if guess in secret_word:
-                self.correct_guess()
-                print("oi")
+                self.correct_guess(secret_word, guess, correct_letters)
             else:
                 attempts += 1
                 self.wrong_guess(attempts)
@@ -35,12 +35,13 @@ class HangmanGame:
             loser = attempts == 7
             winner = " _ " not in correct_letters
 
-            print(correct_letters)
+            print(f"{correct_letters}\n")
 
-            if winner:
-                self.winner_print()
-            else:
-                self.loser_print()
+        time.sleep(1)
+        if winner:
+            self.winner_print()
+        else:
+            self.loser_print()
 
     def welcome(self):
         print("*" * 29)
@@ -63,9 +64,15 @@ class HangmanGame:
         return [" _ " for letter in secret_word]
 
     def ask_for_guess(self):
-        guess = input("What's your guess?").strip().lower()
+        guess = input("What's your guess?\n").strip().lower()[0]
         return guess
 
+    def correct_guess(self, secret_word, guess, correct_letters):
+        index = 0
+        for letter in secret_word:
+            if guess == letter:
+                correct_letters[index] = letter
+            index += 1
 
     def wrong_guess(self, attempts):
         print("  _______     ")
@@ -119,6 +126,7 @@ class HangmanGame:
 
     def winner_print(self):
         print(f"Congratulations, {self.__username}! You win!")
+        time.sleep(1)
         print("       ___________      ")
         print("      '._==_==_=_.'     ")
         print("      .-\\:      /-.    ")

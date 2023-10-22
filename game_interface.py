@@ -1,7 +1,9 @@
 import time
 
+from secret_word import create_secrets_words_in_file
 
-class GameLogic:
+
+class HangmanGame:
 
     def __init__(self, username=None):
         self.__username = username
@@ -9,27 +11,36 @@ class GameLogic:
     def play_game(self):
         secret_word_generator = self.generate_secret_word()
         secret_word = next(secret_word_generator).lower()
+
         attempts = 0
-        hanged = False
+        loser = False
+        winner = False
 
         self.welcome()
-        self.word_print(secret_word)
+        time.sleep(1)
 
+        correct_letters = self.word_print(secret_word)
         print(secret_word)
 
-        while not hanged:
+        while not loser and not winner:
             guess = self.ask_for_guess()
-            attempts += 1
 
             if guess in secret_word:
-                # correct_guess()
+                self.correct_guess()
                 print("oi")
             else:
+                attempts += 1
                 self.wrong_guess(attempts)
-            if attempts == 7:
-                hanged = True
 
-        # while not hanged and
+            loser = attempts == 7
+            winner = " _ " not in correct_letters
+
+            print(correct_letters)
+
+            if winner:
+                self.winner_print()
+            else:
+                self.loser_print()
 
     def welcome(self):
         print("*" * 29)
@@ -39,48 +50,22 @@ class GameLogic:
         print("\nI hope you enjoy my game and have some fun!")
         self.__username = input("But first, tell me your name:\n")
         print(f"\nLet's start, {self.__username}!")
-        print("The theme of the game is people's names.")
+        print("The theme of the game is people's names.\n")
 
     def generate_secret_word(self):
+        create_secrets_words_in_file()
         with open("secrets_words.txt", "r") as file:
             secrets_words_list = file.read().split("\n")
             for word in secrets_words_list:
                 yield word
 
     def word_print(self, secret_word):
-        print([" _ " for letter in secret_word])
+        return [" _ " for letter in secret_word]
 
     def ask_for_guess(self):
         guess = input("What's your guess?").strip().lower()
         return guess
 
-    # def choose_level(self):
-    #     level = 0
-    #
-    #     while level not in [1, 2, 3, 4]:
-    #         time.sleep(1)
-    #         print()
-    #         print("*" * 14)
-    #         print("* DIFFICULTY *")
-    #         print("*" * 14)
-    #         print("1. Easy")
-    #         print("2. Normal")
-    #         print("3. Hard")
-    #         print("4. Hardcore")
-    #         level = int(input("What level do you want to try?"))
-    #
-    #     if level == 1:
-    #         attempts = 10
-    #     elif level == 2:
-    #         attempts = 5
-    #     elif level == 3:
-    #         attempts = 3
-    #     elif level == 4:
-    #         attempts = 1
-    #
-    #     return attempts
-
-    # def correct_guess(self):
 
     def wrong_guess(self, attempts):
         print("  _______     ")
@@ -169,5 +154,5 @@ class GameLogic:
 
 
 if __name__ == '__main__':
-    hangman_game = GameLogic()
+    hangman_game = HangmanGame()
     hangman_game.play_game()

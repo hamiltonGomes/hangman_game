@@ -19,8 +19,8 @@ Game Rules
 5. If you make 7 errors, you lose the game.
 
 ## Project Structure
-**hangman_game.py:** The main code of the game.
-**create_secrets_words.py:** Generates secret words and saves them in a secrets_words.txt file.
+- hangman_game.py: The main code of the game.
+- create_secrets_words.py: Generates secret words and saves them in a secrets_words.txt file.
    
 ## Technologies and Learning
 This project served as an opportunity to practice object-oriented programming in Python. It also demonstrates the utilization of Python features such as file creation, data insertion, and the use of libraries like Faker. The Faker library was employed for generating random names, adding an element of unpredictability and fun to the game.

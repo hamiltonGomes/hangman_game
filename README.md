@@ -28,4 +28,4 @@ This project served as an opportunity to practice object-oriented programming in
 ## Author
 [Hamilton Gomes](https://github.com/hamiltonGomes)
 
-Have fun playing!
+Have fun playing! (:

@@ -11,7 +11,7 @@ Make sure you have Python installed on your system. This project was created in 
    `python hangman_game.py`
 4. Follow the game's instructions. You will be prompted to enter your name, and then the game will start.
 
-Game Rules
+## Game Rules
 1. The game has a theme of people's names.
 2. You have 7 wrong guesses before losing the game.
 3. Try to guess the hidden word by typing letters.
